@@ -82,8 +82,12 @@ WSGI_APPLICATION = 'Saas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'saas_db',
+        'USER': 'postgres',
+        'PASSWORD': 'kashi5134',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -105,6 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Internationalization
@@ -136,3 +143,5 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+
