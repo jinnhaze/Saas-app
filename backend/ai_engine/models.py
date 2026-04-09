@@ -23,4 +23,10 @@ class AIGeneration(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta :
-        
+        ordering = ['-created_at']
+        verbose_name = 'AI Generation'
+        verbose_name_plural = 'AI Generations'
+
+
+    def __str__(self):
+        return f"{self.user.email} - {self.get_generation_type_display()} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"    
