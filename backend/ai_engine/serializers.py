@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Generationtype,AIGeneration
 
 
-class TextGeneratorSerializer(serializers.ModelSerializer):
+class TextGeneratorSerializer(serializers.Serializer):
     prompt = serializers.CharField(
 
          required = True,
@@ -11,7 +11,7 @@ class TextGeneratorSerializer(serializers.ModelSerializer):
          help_text = 'what do you want to generate using text'
     )
 
-class ArticleWriterSerializer(serializers.ModelSerializer):
+class ArticleWriterSerializer(serializers.Serializer):
     prompt = serializers.CharField(
         required = True,
         min_length = 10,
@@ -21,7 +21,7 @@ class ArticleWriterSerializer(serializers.ModelSerializer):
     )
 
 
-class ResumeReviewSerializer(serializers.ModelSerializer):
+class ResumeReviewSerializer(serializers.Serializer):
     resume = serializers.FileField(
         required = True,
         help_text = 'upload your resume(PDF only)'
@@ -37,7 +37,7 @@ class ResumeReviewSerializer(serializers.ModelSerializer):
 
 
 
-class ImageGeneratorSerializer(serializers.ModelSerializer):
+class ImageGeneratorSerializer(serializers.Serializer):
     prompt = serializers.CharField(
         required = True,
         min_length = 10,
@@ -46,7 +46,7 @@ class ImageGeneratorSerializer(serializers.ModelSerializer):
     )    
 
 
-class ImageEditorSerializer(serializers.ModelSerializer):
+class ImageEditorSerializer(serializers.Serializer):
     image = serializers.ImageField(required = True)
     prompt = serializers.CharField(
         required = True,

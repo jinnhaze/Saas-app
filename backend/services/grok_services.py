@@ -1,33 +1,35 @@
 import os
 import base64
 from io import BytesIO
-from dotenv import load_dotenv
-from xai_sdk import Client
-from xai_sdk.chat import user, system   
+from dotenv import load_dotenv  
 from pypdf import PdfReader
+from langchain_groq import ChatGroq
+from langchain_core.messages import HumanMessage, SystemMessage
 
 
 load_dotenv()
 
 class GrokService :
     def __init__(self):
-        api_key = os.getenv("XAI_API_KEY")
-        if not api_key :
-            raise ValueError('api key not found in .env file')
-        self.client = Client(api_key=api_key)
+        self.llm = ChatGroq(
+            model = "llama-3.3-70b-versatile",
+            temperature = 0.7,
+            max_tokens = 1027,
+            api_key = os.getenv("GROQ_API_KEY")
+        )
 
 
 
     def generate_text(self,prompt:str,system_prompt:str=None)->str :
-        chat = self.client.chat.create(model = "grok-4.20-reasoning")    
+        messages = []    
 
 
         if system_prompt :
-            chat.append(system(system_prompt))
+            messages.append(SystemMessage(content=system_prompt))
 
-            chat.append(user(prompt))
-            response = chat.sample()
-            return response.content
+        messages.append(HumanMessage(content=prompt))
+        response = self.llm.invoke(messages)
+        return response.content
         
 
 
